@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Switch } from 'antd';
 import { useSelector, useDispatch } from 'umi';
-import { PlayCircleOutlined, PauseCircleOutlined } from '@ant-design/icons';
+import { PlayCircleFilled, PauseCircleFilled } from '@ant-design/icons';
 import Frame from './Frame';
 
 import styles from './index.less';
@@ -23,7 +23,7 @@ export default () => {
               type: 'player/togglePlay',
             });
           }} type="link" size="large" icon={
-            playing ? <PauseCircleOutlined /> : <PlayCircleOutlined />
+            playing ? <PauseCircleFilled /> : <PlayCircleFilled />
           } />
         </div>
         <div className={styles.headerRight}>

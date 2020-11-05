@@ -1,15 +1,5 @@
 import { flip } from './t.js';
-import {
-  gray,
-  offsetGreen,
-  sunset,
-} from './filter.js';
-
-const filterMap = {
-  gray,
-  offsetGreen,
-  sunset,
-};
+import filterMap from './filter.js';
 
 self.onmessage = function (e) {
   if (e.data.action === 'flip') {

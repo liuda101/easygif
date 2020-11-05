@@ -6,6 +6,7 @@ import GifPlayer from './components/GifPlayer';
 import GifTimeline from './components/GifTimeline';
 import Banner from './components/Banner';
 import Editor from './components/Editor';
+import Export from './components/Export';
 import styles from './app.less';
 
 export default () => {
@@ -21,6 +22,7 @@ export default () => {
       <div className={styles.panel}>
         <Banner />
         <Editor />
+        <Export />
       </div>
 
       <Modal
@@ -42,7 +44,7 @@ export default () => {
             showUploadList={false}
           >
             <p><InboxOutlined style={{fontSize: 50}} /></p>
-            <p>Click or drag file to this area</p>
+            <p>Click or drag a gif to this area</p>
           </Upload.Dragger>
         </div>
       </Modal>
