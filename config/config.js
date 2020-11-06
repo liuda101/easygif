@@ -44,6 +44,7 @@ export default defineConfig({
         {
           path: '/',
           name: 'EasyGif',
+          title: 'EasyGif',
           component: './App',
         },
       ],
