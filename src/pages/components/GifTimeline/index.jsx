@@ -17,7 +17,7 @@ export default () => {
     }}>
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          Timeline <span style={{fontSize: 12}}>({frames.length} frames)</span>
+          Timeline <span style={{fontSize: 12}}>({previewFrames.length} frames)</span>
         </div>
         <div className={styles.headerCenter}>
           <Button onClick={() => {

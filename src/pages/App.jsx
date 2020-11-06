@@ -59,7 +59,7 @@ export default () => {
           <Col span={12}>
             <div style={{height: 140}}>
               <Upload.Dragger
-                accept=".mp4"
+                accept=".mp4,.mov"
                 beforeUpload={(fileSelected) => {
                   dispatch({
                     type: 'parser/resetFile',

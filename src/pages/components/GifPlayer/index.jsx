@@ -33,18 +33,18 @@ export default () => {
           width: 360,
           height: videoRef.current.offsetHeight,
         }, {
-          onParseFinished(frames) {
+          onParseFinished(data) {
             dispatch({
               type: 'player/updateDuration',
               payload: 160,
             });
             dispatch({
               type: 'player/updateFrames',
-              payload: frames,
+              payload: data,
             });
             dispatch({
               type: 'player/setInitialFrames',
-              payload: frames,
+              payload: data,
             });
           }
         });
