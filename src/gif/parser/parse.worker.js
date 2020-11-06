@@ -11,10 +11,13 @@ self.onmessage = function onmessage(event) {
           total,
         });
       },
-      onParseDone(frames) {
+      onParseDone(frames, previewFrames) {
         self.postMessage({
           action: 'SUCCESS',
-          data: frames,
+          data: {
+            frames,
+            previewFrames,
+          }
         });
       },
       onHdr(hdr) {

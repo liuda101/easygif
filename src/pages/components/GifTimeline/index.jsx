@@ -8,11 +8,13 @@ import styles from './index.less';
 
 export default () => {
   const playing = useSelector(state => state.player.playing);
-  const frames = useSelector(state => state.player.frames);
+  const previewFrames = useSelector(state => state.player.previewFrames);
   const dispatch = useDispatch();
 
   return (
-    <div className={styles.timeline}>
+    <div className={styles.timeline} style={{
+      height: previewFrames.length === 0 ? 0 : 195,
+    }}>
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           Timeline <span style={{fontSize: 12}}>({frames.length} frames)</span>

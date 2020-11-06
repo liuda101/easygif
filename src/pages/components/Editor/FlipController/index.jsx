@@ -6,6 +6,7 @@ import EditorGroup from '../EditorGroup';
 
 export default () => {
   const frames = useSelector(state => state.player.frames);
+  const previewFrames = useSelector(state => state.player.previewFrames);
   const dispatch = useDispatch();
 
   const [flipButtons] = useState([
@@ -28,6 +29,7 @@ export default () => {
         action: 'flip',
         flip: button.key,
         frames,
+        previewFrames,
         width: frames[0].data.width,
         height: frames[0].data.height,
       });
@@ -36,7 +38,10 @@ export default () => {
           setFlippingKey('');
           dispatch({
             type: 'player/updateFrames',
-            payload: e.data.data,
+            payload: {
+              frames: e.data.data.frames,
+              previewFrames: e.data.data.previewFrames,
+            },
           });
         }
       };

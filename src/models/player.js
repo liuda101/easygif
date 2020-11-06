@@ -8,6 +8,9 @@ export default {
     initialFrames: [],
     frames: [],
 
+    initialPreviewFrames: [],
+    previewFrames: [],
+
     duration: 0,
     // TODO 添加一个缩略图的版本
   },
@@ -21,19 +24,22 @@ export default {
     setInitialFrames(state, { payload }) {
       return {
         ...state,
-        initialFrames: payload,
+        initialPreviewFrames: payload.previewFrames,
+        initialFrames: payload.frames,
       };
     },
     resetFrames(state) {
       return {
         ...state,
         frames: [...state.initialFrames],
+        previewFrames: [...state.initialPreviewFrames],
       }
     },
     updateFrames(state, { payload }) {
       return {
         ...state,
-        frames: payload,
+        frames: payload.frames,
+        previewFrames: payload.previewFrames,
       };
     },
 

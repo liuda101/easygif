@@ -2,6 +2,7 @@ import Stream from './stream';
 import parseHeader from './utils/parseHeader';
 import parseExt from './utils/parseExt';
 import parseImg from './utils/parseImg';
+import previewFrame from './previewFrame';
 
 // GIF 数据格式说明 https://www.jianshu.com/p/38743ef278ac
 
@@ -72,6 +73,7 @@ export default (base64Str, {
   let disposalRestoreFromIdx = null;
   let frame = null;
   let frames = [];
+  let previewFrames = [];
   let frameOffsets = [];
   let lastImg = null;
   function clear() {
@@ -92,9 +94,13 @@ export default (base64Str, {
 
   function putFrame() {
     if (!frame) return;
+    const data = frame.getImageData(0, 0, hdr.width, hdr.height);
     frames.push({
-      data: frame.getImageData(0, 0, hdr.width, hdr.height),
+      data,
       delay: delay,
+    });
+    previewFrames.push({
+      data: previewFrame(data, hdr.width, hdr.height, 80, 120)
     });
     frameOffsets.push({x: 0, y: 0});
   }
@@ -149,7 +155,7 @@ export default (base64Str, {
 
     eof: withProgress(function() {
       putFrame();
-      onParseDone(frames)
+      onParseDone(frames, previewFrames);
     })
   };
 

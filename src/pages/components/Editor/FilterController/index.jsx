@@ -17,6 +17,7 @@ import styles from './index.less';
 
 export default () => {
   const frames = useSelector(state => state.player.frames);
+  const previewFrames = useSelector(state => state.player.previewFrames);
   const dispatch = useDispatch();
 
   const [filterButtons] = useState([
@@ -78,6 +79,7 @@ export default () => {
         action: 'filter',
         filter: button.key,
         frames,
+        previewFrames,
         width: frames[0].data.width,
         height: frames[0].data.height,
       });
@@ -86,7 +88,10 @@ export default () => {
           setFilterKey('');
           dispatch({
             type: 'player/updateFrames',
-            payload: e.data.data,
+            payload: {
+              frames: e.data.data.frames,
+              previewFrames: e.data.data.previewFrames,
+            },
           });
         }
       };
