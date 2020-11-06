@@ -1,14 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import { useDispatch } from 'umi';
 import styles from './card.less';
 
 export default ({
   frame,
-  currentIndex,
   index,
+  currentIndex,
+  onClickItem,
 }) => {
   const canvasRef = useRef(null);
-  const dispatch = useDispatch();
 
   useEffect(
     () => {
@@ -19,15 +18,8 @@ export default ({
   );
 
   return (
-    <div className={currentIndex === index ? styles.cardActive : styles.card} onClick={
-      () => {
-        dispatch({
-          type: 'player/setIndex',
-          payload: index,
-        });
-      }
-    }>
-      <canvas ref={canvasRef} width="80" height="120" />
+    <div className={styles.card} onClick={onClickItem} style={{borderColor: index === currentIndex ? '#fff' : '#333'}}>
+      <canvas ref={canvasRef} width="78" height="118" />
     </div>
   )
 }

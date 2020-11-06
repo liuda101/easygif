@@ -5,11 +5,12 @@ self.onmessage = function onmessage(event) {
     width,
     height,
     frames,
+    delay,
   } = event.data;
 
   const encoder = new GIFEncoder();
   encoder.setRepeat(0);
-  encoder.setDelay(160);
+  encoder.setDelay(delay);
   encoder.setSize(width, height);
   encoder.start();
   frames.forEach((frame, index) => {

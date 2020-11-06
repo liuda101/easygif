@@ -1,11 +1,39 @@
 .cardScroll {
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .cardContainer {
-  padding: 10px 0 10px 10px;
+  padding: 10px 0;
   display: flex;
   box-sizing: content-box;
+  margin-left: calc(50% - 40px);
+  position: relative;
+  z-index: 12;
+}
+
+.indicator {
+  position: absolute;
+  width: 4px;
+  top: 2px;
+  bottom: 13px;
+  left: 50%;
+  margin-left: -2px;
+  border: solid 1px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+.scrollBar {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 8px;
+  background: #373737;
+  width: 80px;
 }

@@ -20,6 +20,7 @@ export default () => {
         width: frames[0].data.width,
         height: frames[0].data.height,
         frames: frames,
+        delay: duration,
       });
       worker.onmessage = (e) => {
         if (e.data.action === 'FINISHED') {
