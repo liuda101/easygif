@@ -11,6 +11,7 @@ export default () => {
   const [exportingPercent, setExportingPercent] = useState(0);
   const frames = useSelector(state => state.player.frames);
   const duration = useSelector(state => state.player.duration);
+  const repeat = useSelector(state => state.player.repeat);
 
   const handleExport = useCallback(
     () => {
@@ -21,6 +22,7 @@ export default () => {
         height: frames[0].data.height,
         frames: frames,
         delay: duration,
+        repeat: repeat,
       });
       worker.onmessage = (e) => {
         if (e.data.action === 'FINISHED') {
@@ -34,7 +36,7 @@ export default () => {
         }
       };
     },
-    [frames, duration],
+    [frames, duration, repeat],
   );
 
   return (

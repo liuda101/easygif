@@ -12,13 +12,19 @@ export default {
     previewFrames: [],
 
     duration: 0,
-    // TODO 添加一个缩略图的版本
+    repeat: true,
   },
   reducers: {
     updateDuration(state, { payload }) {
       return {
         ...state,
         duration: payload,
+      };
+    },
+    toggleRepeat(state) {
+      return {
+        ...state,
+        repeat: !state.repeat,
       };
     },
     setInitialFrames(state, { payload }) {
@@ -45,6 +51,15 @@ export default {
 
     playNext(state) {
       if (state.playing) {
+        if (!state.repeat) {
+          if (state.currentIndex === state.frames.length - 1) {
+            return {
+              ...state,
+              currentIndex: 0,
+              playing: false,
+            }
+          }
+        }
         let newIndex = state.currentIndex + state.direction;
         if (newIndex >= state.frames.length) {
           newIndex = 0;

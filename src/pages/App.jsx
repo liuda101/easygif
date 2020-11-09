@@ -1,13 +1,22 @@
 import React from 'react';
 import { Modal, Upload, Row, Col } from 'antd';
-import { FileGifOutlined, VideoCameraAddOutlined } from '@ant-design/icons';
+import { FileGifOutlined, VideoCameraAddOutlined, GithubOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'umi';
+// import GifTools from './components/GifTools';
 import GifPlayer from './components/GifPlayer';
 import GifTimeline from './components/GifTimeline';
 import Banner from './components/Banner';
 import Editor from './components/Editor';
 import Export from './components/Export';
 import styles from './app.less';
+
+const ModalTitle = () => {
+  return (
+    <div className={styles.modalTitle}>
+      <div>Select files to begin</div>
+    </div>
+  )
+}
 
 export default () => {
   const dispatch = useDispatch();
@@ -17,6 +26,7 @@ export default () => {
   return (
     <div className={styles.app}>
       <div className={styles.canvas}>
+        {/* <GifTools /> */}
         <GifPlayer />
         <GifTimeline />
       </div>
@@ -29,7 +39,9 @@ export default () => {
       </div>
 
       <Modal
-        title="Please select a gif file"
+        title={
+          <ModalTitle />
+        }
         visible={file === null}
         closable={false}
         footer={null}
@@ -73,7 +85,7 @@ export default () => {
                 showUploadList={false}
               >
                 <p><VideoCameraAddOutlined style={{fontSize: 40}} /></p>
-                <p>Click or drag a video to this area</p>
+                <p>Click or drag a mp4 to this area</p>
               </Upload.Dragger>
             </div>
           </Col>

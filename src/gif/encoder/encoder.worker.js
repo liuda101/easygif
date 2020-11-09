@@ -6,10 +6,13 @@ self.onmessage = function onmessage(event) {
     height,
     frames,
     delay,
+    repeat,
   } = event.data;
 
   const encoder = new GIFEncoder();
-  encoder.setRepeat(0);
+  // Repeat
+  console.log(repeat);
+  encoder.setRepeat(repeat ? 0 : 1);
   encoder.setDelay(delay);
   encoder.setSize(width, height);
   encoder.start();
