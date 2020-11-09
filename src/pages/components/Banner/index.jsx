@@ -4,7 +4,7 @@ import styles from './index.less';
 export default () => {
   return (
     <div className={styles.banner}>
-      Easy Gif
+      <img src="/EasyGIF.png" alt="logo" />
     </div>
   )
 }
