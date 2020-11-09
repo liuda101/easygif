@@ -4,7 +4,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 import styles from './index.less';
 
 const EasyGifIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2178201_v0q9h1b2gq.js',
+  scriptUrl: '//at.alicdn.com/t/font_2178201_ven2ulwpcs.js',
 });
 
 export default () => {

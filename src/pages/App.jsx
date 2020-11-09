@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Upload, Row, Col } from 'antd';
-import { FileGifOutlined, VideoCameraAddOutlined, GithubOutlined } from '@ant-design/icons';
-import { useDispatch, useSelector } from 'umi';
+import { FileGifOutlined, VideoCameraAddOutlined, FileImageOutlined, createFromIconfontCN } from '@ant-design/icons';
+import { useDispatch, useSelector, Link } from 'umi';
 // import GifTools from './components/GifTools';
 import GifPlayer from './components/GifPlayer';
 import GifTimeline from './components/GifTimeline';
@@ -10,10 +10,17 @@ import Editor from './components/Editor';
 import Export from './components/Export';
 import styles from './app.less';
 
+const EasyGifIcon = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_2178201_ven2ulwpcs.js',
+});
+
 const ModalTitle = () => {
   return (
     <div className={styles.modalTitle}>
       <div>Select files to begin</div>
+      <Link to="/introduction">
+        <EasyGifIcon type="icon-help" />
+      </Link>
     </div>
   )
 }
@@ -48,7 +55,7 @@ export default () => {
       >
         <Row gutter={[10, 10]}>
           <Col span={24}>
-            <div style={{height: 150}}>
+            <div style={{height: 120}}>
               <Upload.Dragger
                 accept=".gif"
                 beforeUpload={(fileSelected) => {
@@ -69,7 +76,7 @@ export default () => {
             </div>
           </Col>
           <Col span={24}>
-            <div style={{height: 140}}>
+            <div style={{height: 120}}>
               <Upload.Dragger
                 accept=".mp4"
                 beforeUpload={(fileSelected) => {
@@ -86,6 +93,22 @@ export default () => {
               >
                 <p><VideoCameraAddOutlined style={{fontSize: 40}} /></p>
                 <p>Click or drag a mp4 to this area</p>
+              </Upload.Dragger>
+            </div>
+          </Col>
+          <Col span={24}>
+            <div style={{height: 120}}>
+              <Upload.Dragger
+                accept=".jpg,.jpeg,.png"
+                beforeUpload={(filesSelected) => {
+                  console.log(filesSelected);
+                  return false;
+                }}
+                multiple
+                showUploadList={false}
+              >
+                <p><FileImageOutlined style={{fontSize: 40}} /></p>
+                <p>Click to select some pictures to make a gif</p>
               </Upload.Dragger>
             </div>
           </Col>
