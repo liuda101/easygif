@@ -5,6 +5,7 @@ import Worker from '@/gif/parser/parse.worker.js';
 import parseVideo from '@/gif/parser/video.parse.js';
 import Player from './Player';
 import PicsToGif from '../PicsToGif';
+import FabricEditor from '../FabricEditor';
 import styles from './index.less';
 
 export default () => {
@@ -210,6 +211,11 @@ export default () => {
         ) : null
       }
       <Player {...imgSize} />
+      {
+        imgSize.width > 0 && (
+          <FabricEditor {...imgSize} />
+        )
+      }
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'umi';
+import { useSelector, useDispatch } from 'umi';
 import { createFromIconfontCN } from '@ant-design/icons';
 import styles from './index.less';
 
@@ -9,6 +9,7 @@ const EasyGifIcon = createFromIconfontCN({
 
 export default () => {
   const previewFrames = useSelector(state => state.player.previewFrames);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.tools} style={{
@@ -16,7 +17,15 @@ export default () => {
       padding: previewFrames.length ? 10 : 0,
     }}>
       <div className={styles.toolsBar}>
-        <a title="Click to add some text">
+        <a title="Click to add some text" onClick={() => {
+          dispatch({
+            type: 'fabric/addObject',
+            payload: new fabric.IText('Add text', {
+              top: 0,
+              left: 0,
+            }),
+          });
+        }}>
           <EasyGifIcon type="icon-TextAdd" />
         </a>
         <a title="Click to add some pictures">

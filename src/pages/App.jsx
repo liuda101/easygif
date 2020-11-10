@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Upload, Row, Col } from 'antd';
 import { FileGifOutlined, VideoCameraAddOutlined, FileImageOutlined, createFromIconfontCN } from '@ant-design/icons';
 import { useDispatch, useSelector, Link } from 'umi';
-// import GifTools from './components/GifTools';
+import GifTools from './components/GifTools';
 import GifPlayer from './components/GifPlayer';
 import GifTimeline from './components/GifTimeline';
 import Banner from './components/Banner';
@@ -33,7 +33,7 @@ export default () => {
   return (
     <div className={styles.app}>
       <div className={styles.canvas}>
-        {/* <GifTools /> */}
+        <GifTools />
         <GifPlayer />
         <GifTimeline />
       </div>
