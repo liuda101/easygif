@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Typography, Row, Col, Button } from 'antd';
 import { history } from 'umi';
 
 export default () => {
+  const div = useRef(null);
+  useEffect(
+    () => {
+      const script = document.createElement('script');
+      script.async = true;
+      script.setAttribute('data-ad-client', '');
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+      div.current.appendChild(script);
+    },
+    []
+  );
+
   return (
     <div style={{
       width: 1000,
@@ -48,6 +60,8 @@ export default () => {
       <Typography>
         EasyGif use the browser tech to do all things. It's a pure JS/CSS/HTML application.
       </Typography>
+      <div ref={div} style={{height: 200}}>
+      </div>
     </div>
   )
 }
