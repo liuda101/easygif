@@ -12,15 +12,18 @@ export default () => {
   const frames = useSelector(state => state.player.frames);
   const duration = useSelector(state => state.player.duration);
   const repeat = useSelector(state => state.player.repeat);
+  const fabricCanvas = useSelector(state => state.fabric.fabricCanvas);
 
   const handleExport = useCallback(
     () => {
       setExporting(true);
+      // console.log(fabricCanvas.toDataURL());
       const worker = new EncoderWorker();
       worker.postMessage({
         width: frames[0].data.width,
         height: frames[0].data.height,
         frames: frames,
+        fabricData: fabricCanvas.toDataURL(),
         delay: duration,
         repeat: repeat,
       });
@@ -36,7 +39,7 @@ export default () => {
         }
       };
     },
-    [frames, duration, repeat],
+    [frames, duration, repeat, fabricCanvas],
   );
 
   return (

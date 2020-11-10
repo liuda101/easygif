@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useSelector } from 'umi';
+import { useSelector, useDispatch } from 'umi';
 import FabricSettings from '../FabricSettings';
 
 let fabricCanvas;
@@ -9,24 +9,39 @@ export default ({
   height,
 }) => {
   const canvasRef = useRef(null);
+  const dispatch = useDispatch();
+
   useEffect(
     () => {
       fabricCanvas = new window.fabric.Canvas(canvasRef.current);
+      dispatch({
+        type: 'fabric/setCanvas',
+        payload: fabricCanvas,
+      });
     },
     [],
   );
 
   const objectList = useSelector(state => state.fabric.objectList);
+  const currentObject = useSelector(state => state.fabric.currentObject);
   useEffect(
     () => {
       objectList.forEach(obj => {
-        console.log(obj);
         if (!fabricCanvas.contains(obj)) {
           fabricCanvas.add(obj);
+          fabricCanvas.setActiveObject(obj);
         }
       });
     },
     [objectList],
+  );
+  useEffect(
+    () => {
+      if (!currentObject) {
+        fabricCanvas.discardActiveObject();
+      }
+    },
+    [currentObject],
   );
 
   return (

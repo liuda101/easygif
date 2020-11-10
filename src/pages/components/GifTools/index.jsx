@@ -18,12 +18,20 @@ export default () => {
     }}>
       <div className={styles.toolsBar}>
         <a title="Click to add some text" onClick={() => {
+          const text = new fabric.IText('Add text', {
+            top: 0,
+            left: 0,
+            fontSize: 30,
+          });
+          text.on('selected', () => {
+            dispatch({
+              type: 'fabric/updateCurrentObject',
+              payload: text,
+            });
+          });
           dispatch({
             type: 'fabric/addObject',
-            payload: new fabric.IText('Add text', {
-              top: 0,
-              left: 0,
-            }),
+            payload: text,
           });
         }}>
           <EasyGifIcon type="icon-TextAdd" />

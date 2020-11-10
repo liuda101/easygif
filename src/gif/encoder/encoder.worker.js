@@ -1,10 +1,27 @@
 import GIFEncoder from './GIFEncoder';
+import combineData from './combineData';
+
+function addFrame(encoder, frames, fabricData, width, height, index, done) {
+  if (index >= frames.length) {
+    done();
+  } else {
+    combineData(frames[index].data, fabricData, width, height).then(newData => {
+      encoder.addFrame(newData, true);
+      addFrame(encoder, frames, fabricData, width, height, index + 1, done);
+      self.postMessage({
+        action: 'PROGRESS',
+        percent: ((index + 1) / frames.length) * 100
+      });
+    });
+  }
+}
 
 self.onmessage = function onmessage(event) {
   const {
     width,
     height,
     frames,
+    fabricData,
     delay,
     repeat,
   } = event.data;
@@ -15,17 +32,13 @@ self.onmessage = function onmessage(event) {
   encoder.setDelay(delay);
   encoder.setSize(width, height);
   encoder.start();
-  frames.forEach((frame, index) => {
-    encoder.addFrame(frame.data, true);
-    self.postMessage({
-      action: 'PROGRESS',
-      percent: ((index + 1) / frames.length) * 100
-    });
-  });
-  encoder.finish();
 
-  self.postMessage({
-    action: 'FINISHED',
-    data: encoder.stream(),
+  addFrame(encoder, frames, fabricData, width, height, 0, () => {
+    encoder.finish();
+
+    self.postMessage({
+      action: 'FINISHED',
+      data: encoder.stream(),
+    });
   });
 }
