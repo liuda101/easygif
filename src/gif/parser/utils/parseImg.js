@@ -26,7 +26,7 @@ export default (st, img, handler) => {
   img.pixels = lzwDecode(img.lzwMinCodeSize, lzwData);
 
   if (img.interlaced) {
-    console.log('interlaced');
+    // console.log('interlaced');
   }
 
   // TODO interlaced

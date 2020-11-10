@@ -100,12 +100,22 @@ export default () => {
             <div style={{height: 120}}>
               <Upload.Dragger
                 accept=".jpg,.jpeg,.png"
-                beforeUpload={(filesSelected) => {
-                  console.log(filesSelected);
+                beforeUpload={() => {
                   return false;
                 }}
                 multiple
                 showUploadList={false}
+                onChange={(v) => {
+                  if (file === null) {
+                    dispatch({
+                      type: 'parser/resetFile',
+                      payload: {
+                        file: v.fileList,
+                        fileType: 'PICS',
+                      },
+                    });
+                  }
+                }}
               >
                 <p><FileImageOutlined style={{fontSize: 40}} /></p>
                 <p>Click to select some pictures to make a gif</p>

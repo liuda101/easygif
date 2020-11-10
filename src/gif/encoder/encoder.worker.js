@@ -11,7 +11,6 @@ self.onmessage = function onmessage(event) {
 
   const encoder = new GIFEncoder();
   // Repeat
-  console.log(repeat);
   encoder.setRepeat(repeat ? 0 : 1);
   encoder.setDelay(delay);
   encoder.setSize(width, height);

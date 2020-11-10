@@ -4,6 +4,7 @@ import { Progress } from 'antd';
 import Worker from '@/gif/parser/parse.worker.js';
 import parseVideo from '@/gif/parser/video.parse.js';
 import Player from './Player';
+import PicsToGif from '../PicsToGif';
 import styles from './index.less';
 
 export default () => {
@@ -159,6 +160,53 @@ export default () => {
               <Progress percent={parsePercent} type="circle" />
             </div>
           </div>
+        ) : null
+      }
+      {
+        fileType === 'PICS' && parsing ? (
+          <PicsToGif
+            onSubmit={data => {
+              setParsing(false);
+              setImgSize({
+                width: data.width,
+                height: data.height,
+              });
+              dispatch({
+                type: 'player/updateDuration',
+                payload: 160,
+              });
+              dispatch({
+                type: 'player/updateFrames',
+                payload: {
+                  frames: data.frameData.map(item => {
+                    return {
+                      data: item.largeData,
+                    }
+                  }),
+                  previewFrames: data.frameData.map(item => {
+                    return {
+                      data: item.previewData,
+                    }
+                  }),
+                },
+              });
+              dispatch({
+                type: 'player/setInitialFrames',
+                payload: {
+                  frames: data.frameData.map(item => {
+                    return {
+                      data: item.largeData,
+                    }
+                  }),
+                  previewFrames: data.frameData.map(item => {
+                    return {
+                      data: item.previewData,
+                    }
+                  }),
+                },
+              });
+            }}
+          />
         ) : null
       }
       <Player {...imgSize} />
