@@ -43,6 +43,12 @@ export default defineConfig({
       routes: [
         {
           path: '/',
+          name: 'Welcome',
+          title: 'EasyGif',
+          component: './welcome',
+        },
+        {
+          path: '/editor',
           name: 'EasyGif',
           title: 'EasyGif',
           component: './App',
