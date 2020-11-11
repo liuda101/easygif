@@ -39,6 +39,7 @@ export default () => {
           height: videoRef.current.offsetHeight,
         }, {
           onParseFinished(data) {
+            setParsing(false);
             dispatch({
               type: 'player/updateDuration',
               payload: 160,
@@ -224,12 +225,12 @@ export default () => {
       }
       <Player {...imgSize} />
       {
-        imgSize.width > 0 && (
+        imgSize.height > 0 && (
           <FabricEditor {...imgSize} />
         )
       }
       {
-        imgSize.width > 0 && clipping && (
+        imgSize.height > 0 && clipping && (
           <CanvasClip {...imgSize} />
         )
       }

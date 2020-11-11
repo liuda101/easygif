@@ -102,6 +102,15 @@ export default {
         ...state,
         size: payload,
       }
+    },
+    rotateFrame(state) {
+      return {
+        ...state,
+        size: {
+          width: state.size.height,
+          height: state.size.width,
+        }
+      }
     }
   },
 };

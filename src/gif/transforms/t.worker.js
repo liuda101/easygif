@@ -1,5 +1,7 @@
 import { flip } from './t.js';
 import filterMap from './filter.js';
+import rotate from './rotate';
+import previewFrame from '../parser/previewFrame';
 
 self.onmessage = function (e) {
   if (e.data.action === 'flip') {
@@ -25,5 +27,24 @@ self.onmessage = function (e) {
         }
       });
     }
+  } else if (e.data.action === 'rotate') {
+    var newFrames = [];
+    var newPreviewFrames = [];
+    e.data.frames.forEach((frame, index) => {
+      const pd = rotate(e.data.previewFrames[index], 80, 120, e.data.delta);
+      newFrames.push({
+        data: rotate(frame, e.data.width, e.data.height, e.data.delta)
+      });
+      newPreviewFrames.push({
+        data: previewFrame(pd, pd.width, pd.height, 80, 120),
+      });
+    });
+    self.postMessage({
+      action: 'TRANSFORM_SUCCESS',
+      data: {
+        frames: newFrames,
+        previewFrames: newPreviewFrames,
+      }
+    });
   }
 }

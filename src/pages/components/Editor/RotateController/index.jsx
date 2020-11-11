@@ -1,42 +1,50 @@
 import React, { useState, useCallback } from 'react';
 import { Space, Button } from 'antd';
 import { useSelector, useDispatch } from 'umi';
+import { RotateLeftOutlined, RotateRightOutlined } from '@ant-design/icons';
 import TransformWorker from '@/gif/transforms/t.worker.js';
 import EditorGroup from '../EditorGroup';
 
 export default () => {
-  const frames = useSelector(state => state.player.frames);
-  const previewFrames = useSelector(state => state.player.previewFrames);
+  const frames = useSelector(state => state.player.initialFrames);
+  const previewFrames = useSelector(state => state.player.initialPreviewFrames);
   const dispatch = useDispatch();
+  const [currentRotate, setCurrentRotate] = useState(0);
 
-  const [flipButtons] = useState([
+  const [rotateButtons] = useState([
     {
-      title: 'Flip X',
-      key: 'x',
+      icon: RotateLeftOutlined,
+      key: 'RotateLeft',
+      delta: -90
     },
     {
-      title: 'Flip Y',
-      key: 'y',
+      icon: RotateRightOutlined,
+      key: 'RotateRight',
+      delta: 90,
     },
   ]);
-  const [flippingKey, setFlippingKey] = useState('');
+  const [rotatingKey, setRotatingKey] = useState('');
   
   const handleButtonClick = useCallback(
     (button) => {
       const worker = new TransformWorker();
-      setFlippingKey(button.key);
+      setRotatingKey(button.key);
       worker.postMessage({
-        action: 'flip',
-        flip: button.key,
+        action: 'rotate',
+        delta: currentRotate + button.delta,
         frames,
         previewFrames,
         width: frames[0].data.width,
         height: frames[0].data.height,
       });
+      dispatch({
+        type: 'player/rotateFrame',
+      });
       worker.onmessage = (e) => {
         if (e.data.action === 'TRANSFORM_SUCCESS') {
           worker.terminate();
-          setFlippingKey('');
+          setCurrentRotate(currentRotate + button.delta);
+          setRotatingKey('');
           dispatch({
             type: 'player/updateFrames',
             payload: {
@@ -47,26 +55,29 @@ export default () => {
         }
       };
     },
-    [frames],
+    [frames, currentRotate],
   );
 
   return (
     <EditorGroup
-      title="Flip"
+      title="Rotate"
       rightSlot={
         <div style={{textAlign: 'right'}}>
           <Space>
             {
-              flipButtons.map(button => {
+              rotateButtons.map(button => {
+                const Icon = button.icon;
                 return (
                   <Button
                     key={button.key}
-                    loading={flippingKey === button.key}
-                    disabled={flippingKey && flippingKey !== button.key}
+                    loading={rotatingKey === button.key}
+                    disabled={rotatingKey && rotatingKey !== button.key}
                     onClick={() => {
                       handleButtonClick(button);
                     }}
-                  >{button.title}</Button>
+                  >
+                    <Icon />
+                  </Button>
                 )
               })
             }

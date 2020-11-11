@@ -85,6 +85,7 @@ export default () => {
       });
       worker.onmessage = (e) => {
         if (e.data.action === 'TRANSFORM_SUCCESS') {
+          worker.terminate();
           setFilterKey('');
           dispatch({
             type: 'player/updateFrames',

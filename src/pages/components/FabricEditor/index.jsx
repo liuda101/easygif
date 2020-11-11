@@ -64,6 +64,17 @@ export default ({
     },
     [willRemove],
   );
+  useEffect(
+    () => {
+      if (fabricCanvas) {
+        console.log('setWidth', width);
+        fabricCanvas.setWidth(width);
+        fabricCanvas.setHeight(height);
+        fabricCanvas.renderAll();
+      }
+    },
+    [width, height]
+  );
 
   return (
     <div>
