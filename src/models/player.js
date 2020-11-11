@@ -111,6 +111,15 @@ export default {
           height: state.size.width,
         }
       }
+    },
+    reverseFrame(state) {
+      return {
+        ...state,
+        initialFrames: [...state.initialFrames.reverse()],
+        frames: [...state.frames.reverse()],
+        initialPreviewFrames: [...state.initialPreviewFrames.reverse()],
+        previewFrames: [...state.previewFrames.reverse()],
+      }
     }
   },
 };
