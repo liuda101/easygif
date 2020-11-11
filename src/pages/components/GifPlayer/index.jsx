@@ -6,6 +6,7 @@ import parseVideo from '@/gif/parser/video.parse.js';
 import Player from './Player';
 import PicsToGif from '../PicsToGif';
 import FabricEditor from '../FabricEditor';
+import CanvasClip from '../CanvasClip';
 import styles from './index.less';
 
 export default () => {
@@ -13,22 +14,24 @@ export default () => {
   const file = useSelector(state => state.parser.file);
   const fileType = useSelector(state => state.parser.fileType);
 
+  const clipping = useSelector(state => state.clip.isClipping);
+
   const [parsing, setParsing] = useState(false);
   const [parsePercent, setParsePercent] = useState(0);
   const [imgSrc, setImgSrc] = useState(null);
-  const [imgSize, setImgSize] = useState({
-    width: 0,
-    height: 0,
-  });
+  const imgSize = useSelector(state => state.player.size);
 
   const videoRef = useRef(null);
   const handleVideoPlay = useCallback(
     () => {
       // 设置高度
       if (imgSize.height === 0) {
-        setImgSize({
-          width: 360,
-          height: videoRef.current.offsetHeight,
+        dispatch({
+          type: 'player/updateSize',
+          payload: {
+            width: 360,
+            height: videoRef.current.offsetHeight,
+          }
         });
 
         parseVideo(videoRef.current, {
@@ -96,9 +99,12 @@ export default () => {
                 setParsing(false);
                 worker.terminate();
               } else if (event.data.action === 'HDR') {
-                setImgSize({
-                  width: event.data.data.width,
-                  height: event.data.data.height,
+                dispatch({
+                  type: 'player/updateSize',
+                  payload: {
+                    width: event.data.data.width,
+                    height: event.data.data.height,
+                  }
                 });
               }
             };
@@ -106,9 +112,12 @@ export default () => {
           reader.readAsDataURL(file);
         } else if (fileType === 'VIDEO') {
           const reader = new FileReader();
-          setImgSize({
-            width: 360,
-            height: 0,
+          dispatch({
+            type: 'player/updateSize',
+            payload: {
+              width: 360,
+              height: 0,
+            }
           });
           reader.onload = () => {
             const base64 = reader.result;
@@ -168,9 +177,12 @@ export default () => {
           <PicsToGif
             onSubmit={data => {
               setParsing(false);
-              setImgSize({
-                width: data.width,
-                height: data.height,
+              dispatch({
+                type: 'player/updateSize',
+                payload: {
+                  width: data.width,
+                  height: data.height,
+                }
               });
               dispatch({
                 type: 'player/updateDuration',
@@ -214,6 +226,11 @@ export default () => {
       {
         imgSize.width > 0 && (
           <FabricEditor {...imgSize} />
+        )
+      }
+      {
+        imgSize.width > 0 && clipping && (
+          <CanvasClip {...imgSize} />
         )
       }
     </div>

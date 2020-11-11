@@ -13,6 +13,11 @@ export default {
 
     duration: 0,
     repeat: true,
+
+    size: {
+      width: 0,
+      height: 0,
+    },
   },
   reducers: {
     updateDuration(state, { payload }) {
@@ -90,6 +95,13 @@ export default {
         ...state,
         playing: !state.playing,
       };
+    },
+
+    updateSize(state, { payload }) {
+      return {
+        ...state,
+        size: payload,
+      }
     }
   },
 };
