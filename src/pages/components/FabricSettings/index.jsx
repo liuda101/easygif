@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer } from 'antd';
 import { useSelector, useDispatch } from 'umi';
-import FontEditor from './components/FontEditor';
+import EditorForm from './components/EditorForm';
+import fontConfig from './config/font';
 
-const EditorMap = {
-  'i-text': FontEditor,
+const EditorConfig = {
+  'i-text': fontConfig,
 };
-
-function CurrentEditor({
-  type,
-  props = {},
-}) {
-  const Editor = EditorMap[type];
-  return Editor ? <Editor {...props} /> : null;
-}
 
 export default () => {
   const currentObject = useSelector(state => state.fabric.currentObject);
@@ -24,6 +17,7 @@ export default () => {
   useEffect(
     () => {
       setType(currentObject?.type);
+      console.log(currentObject?.type);
       if (currentObject) {
         setInitialValues({
           text: currentObject.get('text'),
@@ -48,16 +42,33 @@ export default () => {
         });
       }}
     >
-      <CurrentEditor
-        type={type}
-        props={{
-          initialValues: initialValues,
-          onChange(v) {
-            const key = Object.keys(v)[0];
-            currentObject.set(key, v[key]);
-          }
-        }}
-      />
+      {
+        type && (
+          <EditorForm
+            items={EditorConfig[type]}
+            initialValues={initialValues}
+            onClose={() => {
+              dispatch({
+                type: 'fabric/updateCurrentObject',
+                payload: null,
+              });
+            }}
+            onDelete={() => {
+              dispatch({
+                type: 'fabric/willRemoveObject',
+              });
+            }}
+            onChange={v => {
+              Object.keys(v).forEach(k => {
+                currentObject.set(k, v[k]);
+              });
+              dispatch({
+                type: 'fabric/reRender',
+              });
+            }}
+          />
+        )
+      }
     </Drawer>
   )
 }

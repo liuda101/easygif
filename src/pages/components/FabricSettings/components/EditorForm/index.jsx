@@ -4,6 +4,8 @@ import {
   Input,
   Select,
   Slider,
+  Button,
+  Space,
 } from 'antd';
 
 const FormItemMap = {
@@ -15,6 +17,8 @@ export default ({
   items,
   initialValues = {},
   onChange,
+  onClose,
+  onDelete,
 }) => {
   return (
     <Form
@@ -40,6 +44,12 @@ export default ({
           )
         })
       }
+      <div style={{margin: '70px 0 30px', textAlign: 'center'}}>
+        <Space>
+          <Button onClick={onClose}>Close</Button>
+          <Button type="danger" onClick={onDelete}>Delete</Button>
+        </Space>
+      </div>
     </Form>
   )
 }

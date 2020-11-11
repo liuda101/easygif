@@ -24,6 +24,8 @@ export default ({
 
   const objectList = useSelector(state => state.fabric.objectList);
   const currentObject = useSelector(state => state.fabric.currentObject);
+  const renderTrigger = useSelector(state => state.fabric.renderTrigger);
+  const willRemove = useSelector(state => state.fabric.willRemove);
   useEffect(
     () => {
       objectList.forEach(obj => {
@@ -42,6 +44,25 @@ export default ({
       }
     },
     [currentObject],
+  );
+  useEffect(
+    () => {
+      if (renderTrigger > 0) {
+        fabricCanvas.renderAll();
+      }
+    },
+    [renderTrigger]
+  );
+  useEffect(
+    () => {
+      if (willRemove) {
+        fabricCanvas.remove(willRemove);
+        dispatch({
+          type: 'fabric/removeObject',
+        });
+      }
+    },
+    [willRemove],
   );
 
   return (
