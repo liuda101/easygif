@@ -8,6 +8,8 @@ import {
   Space,
   Radio,
   InputNumber,
+  Row,
+  Col,
 } from 'antd';
 import ShadowInput from './ShadowInput';
 
@@ -23,6 +25,7 @@ const FormItemMap = {
 export default ({
   items,
   initialValues = {},
+  framesSelector,
   onChange,
   onClose,
   onDelete,
@@ -59,6 +62,7 @@ export default ({
           )
         })
       }
+      {framesSelector}
       <div style={{margin: '70px 0 30px', textAlign: 'center'}}>
         <Space>
           <Button onClick={onClose}>Close</Button>

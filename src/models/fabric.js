@@ -55,6 +55,13 @@ export default {
         renderTrigger: state.renderTrigger + 1,
         objectList: newObjectList,
       }
+    },
+    updateFrames(state, { payload }) {
+      state.currentObject._frameRange = payload;
+      return {
+        ...state,
+        currentObject: state.currentObject
+      }
     }
   },
 };
