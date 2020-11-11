@@ -17,12 +17,16 @@ export default () => {
   useEffect(
     () => {
       setType(currentObject?.type);
-      console.log(currentObject?.type);
       if (currentObject) {
         setInitialValues({
           text: currentObject.get('text'),
           fontSize: currentObject.get('fontSize'),
           fill: currentObject.get('fill'),
+          fontWeight: currentObject.get('fontWeight'),
+          shadow: currentObject.get('shadow'),
+          fontStyle: currentObject.get('fontStyle'),
+          stroke: currentObject.get('stroke'),
+          strokeWidth: currentObject.get('strokeWidth'),
         });
       }
     },

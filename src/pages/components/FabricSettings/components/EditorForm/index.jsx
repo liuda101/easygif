@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Form,
   Input,
@@ -6,11 +6,18 @@ import {
   Slider,
   Button,
   Space,
+  Radio,
+  InputNumber,
 } from 'antd';
+import ShadowInput from './ShadowInput';
 
 const FormItemMap = {
   input: Input,
   slider: Slider,
+  select: Select,
+  shadow: ShadowInput,
+  radioGroup: Radio.Group,
+  inputNumber: InputNumber,
 };
 
 export default ({
@@ -20,15 +27,23 @@ export default ({
   onClose,
   onDelete,
 }) => {
+  const [form] = Form.useForm();
+  useEffect(
+    () => {
+      form.setFieldsValue(initialValues);
+    },
+    [initialValues],
+  );
+
   return (
     <Form
-      initialValues={initialValues}
       onValuesChange={v => {
         onChange(v);
       }}
       labelCol={{span: 4}}
       wrapperCol={{span: 18}}
       labelAlign="left"
+      form={form}
     >
       {
         items.map(item => {
