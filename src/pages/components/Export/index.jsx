@@ -13,17 +13,42 @@ export default () => {
   const duration = useSelector(state => state.player.duration);
   const repeat = useSelector(state => state.player.repeat);
   const fabricCanvas = useSelector(state => state.fabric.fabricCanvas);
+  const fabricObjList = useSelector(state => state.fabric.objectList);
 
   const handleExport = useCallback(
     () => {
       setExporting(true);
-      // console.log(fabricCanvas.toDataURL());
+      
+      const fabricDataList = [];
+      frames.forEach((f, index) => {
+        fabricObjList.forEach(obj => {
+          const frameRange = obj._frameRange;
+          if (frameRange) {
+            if (frameRange[0] - 1 <= index && frameRange[1] - 1 >= index) {
+              obj.set('opacity', 1);
+            } else {
+              obj.set('opacity', 0);
+            }
+          } else {
+            obj.set('opacity', 1);
+          }
+        });
+        fabricCanvas.renderAll();
+        fabricDataList.push(fabricCanvas.toDataURL());
+      });
+
+      fabricObjList.forEach(obj => {
+        obj.set('opacity', 1);
+      });
+      fabricCanvas.renderAll();
+
       const worker = new EncoderWorker();
       worker.postMessage({
         width: frames[0].data.width,
         height: frames[0].data.height,
         frames: frames,
-        fabricData: fabricCanvas.toDataURL(),
+        // fabricData: fabricCanvas.toDataURL(),
+        fabricDataList,
         delay: duration,
         repeat: repeat,
       });
@@ -39,7 +64,7 @@ export default () => {
         }
       };
     },
-    [frames, duration, repeat, fabricCanvas],
+    [frames, duration, repeat, fabricCanvas, fabricObjList],
   );
 
   return (

@@ -9,6 +9,7 @@ import styles from './index.less';
 export default () => {
   const playing = useSelector(state => state.player.playing);
   const repeat = useSelector(state => state.player.repeat);
+  const currentIndex = useSelector(state => state.player.currentIndex);
   const previewFrames = useSelector(state => state.player.previewFrames);
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ export default () => {
         <div className={styles.headerLeft}>
           <Space>
             Timeline
-            <span style={{fontSize: 12}}>({previewFrames.length} frames)</span>
+            <span style={{fontSize: 12}}>({currentIndex + 1} / {previewFrames.length} frames)</span>
           </Space>
         </div>
         <div className={styles.headerCenter}>

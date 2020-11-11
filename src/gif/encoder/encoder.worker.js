@@ -1,13 +1,13 @@
 import GIFEncoder from './GIFEncoder';
 import combineData from './combineData';
 
-function addFrame(encoder, frames, fabricData, width, height, index, done) {
+function addFrame(encoder, frames, fabricDataList, width, height, index, done) {
   if (index >= frames.length) {
     done();
   } else {
-    combineData(frames[index].data, fabricData, width, height).then(newData => {
+    combineData(frames[index].data, fabricDataList[index], width, height).then(newData => {
       encoder.addFrame(newData, true);
-      addFrame(encoder, frames, fabricData, width, height, index + 1, done);
+      addFrame(encoder, frames, fabricDataList, width, height, index + 1, done);
       self.postMessage({
         action: 'PROGRESS',
         percent: ((index + 1) / frames.length) * 100
@@ -21,7 +21,7 @@ self.onmessage = function onmessage(event) {
     width,
     height,
     frames,
-    fabricData,
+    fabricDataList,
     delay,
     repeat,
   } = event.data;
@@ -33,7 +33,7 @@ self.onmessage = function onmessage(event) {
   encoder.setSize(width, height);
   encoder.start();
 
-  addFrame(encoder, frames, fabricData, width, height, 0, () => {
+  addFrame(encoder, frames, fabricDataList, width, height, 0, () => {
     encoder.finish();
 
     self.postMessage({
