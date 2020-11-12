@@ -2,25 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'umi';
 import { Progress } from 'antd';
 import Worker from '@/gif/parser/parsePics.worker.js';
+import filesToImgs from '@/utils/filesToImgs';
 import styles from './index.less';
-
-function readFile(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({
-          src: reader.result,
-          width: img.width,
-          height: img.height,
-        });
-      };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file.originFileObj);
-  });
-}
 
 export default ({
   onSubmit,
@@ -32,11 +15,7 @@ export default ({
   useEffect(
     () => {
       setParsing(true);
-      const promises = [];
-      Array.from(files).forEach(file => {
-        promises.push(readFile(file));
-      });
-      Promise.all(promises).then(result => {
+      filesToImgs(files).then(result => {
         let minWidth = 0;
         let minHeight = 0;
         result.forEach(item => {

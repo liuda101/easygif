@@ -1,69 +1,62 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Modal, Upload, Button } from 'antd';
 import { useSelector } from 'umi';
 import Worker from '@/gif/parser/parsePics.worker.js';
-
-function readFile(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        resolve({
-          src: reader.result,
-          width: img.width,
-          height: img.height,
-        });
-      };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
+import filesToImgs from '@/utils/filesToImgs';
 
 export default ({
   onGotFrame,
+  onCancel,
 }) => {
   const size = useSelector(state => state.player.size);
   const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState(null);
 
-  const handleFileSelected = useCallback(
-    (file) => {
-      setLoading(true);
-      readFile(file).then(result => {
-        const worker = new Worker();
-        worker.postMessage({
-          images: [result],
-          width: size.width,
-          height: size.height,
+  useEffect(
+    () => {
+      if (files) {
+        setLoading(true);
+        filesToImgs(files).then(result => {
+          const worker = new Worker();
+          worker.postMessage({
+            images: result,
+            width: size.width,
+            height: size.height,
+          });
+          worker.onmessage = (e) => {
+            if (e.data.action === 'FINISHED') {
+              console.log(e.data.result);
+              result = null;
+              onGotFrame(e.data.result);
+              worker.terminate();
+            }
+          };
         });
-        worker.onmessage = (e) => {
-          if (e.data.action === 'FINISHED') {
-            result = null;
-            onGotFrame(e.data.result);
-            worker.terminate();
-          }
-        };
-      });
+      }
     },
-    [size],
+    [files, size],
   );
 
 
   return (
     <Modal
       visible
-      title="Add Frame"
+      title="Add Frames"
+      footer={null}
+      onCancel={onCancel}
     >
       <Upload
         accept=".jpg,.jpeg,.png"
         beforeUpload={e => {
-          handleFileSelected(e);
           return false;
         }}
         showUploadList={false}
+        multiple
+        onChange={(e) => {
+          setFiles(e.fileList);
+        }}
       >
-        <Button loading={loading}>Select a picture</Button>
+        <Button loading={loading}>Choose pictures to add</Button>
       </Upload>
     </Modal>
   )

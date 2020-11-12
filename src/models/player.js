@@ -152,24 +152,30 @@ export default {
       if (pos > 0) {
         insertIndex += 1;
       }
-      const largeFrame = {
-        data: data[0].largeData,
-      };
-      const previewFrame = {
-        data: data[0].previewData,
-      };
+      const largeFrames = data.map(item => {
+        return {
+          data: item.largeData,
+        }
+      });
+      const smallFrames = data.map(item => {
+        return {
+          data: item.previewData,
+        }
+      });
 
       const initialFrames = state.initialFrames;
-      initialFrames.splice(insertIndex, 0, largeFrame);
+      initialFrames.splice(insertIndex, 0, ...largeFrames);
 
       const frames = state.frames;
-      frames.splice(insertIndex, 0, largeFrame);
+      frames.splice(insertIndex, 0, ...largeFrames);
 
       const initialPreviewFrames = state.initialPreviewFrames;
-      initialPreviewFrames.splice(insertIndex, 0, previewFrame);
+      initialPreviewFrames.splice(insertIndex, 0, ...smallFrames);
 
       const previewFrames = state.previewFrames;
-      previewFrames.splice(insertIndex, 0, previewFrame);
+      previewFrames.splice(insertIndex, 0, ...smallFrames);
+
+      console.log(largeFrames, smallFrames, previewFrames.length);
       return {
         ...state,
         initialFrames: [...initialFrames],

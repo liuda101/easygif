@@ -95,6 +95,11 @@ export default ({
       {
         addingFrame.visible && (
           <AddNewFrame
+            onCancel={() => {
+              setAddingFrame({
+                visible: false,
+              });
+            }}
             onGotFrame={(data) => {
               dispatch({
                 type: 'player/addNewFrame',
