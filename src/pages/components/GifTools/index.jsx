@@ -6,7 +6,7 @@ import ResizeWorker from '@/gif/resize/resize.worker.js';
 import styles from './index.less';
 
 const EasyGifIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2178201_ven2ulwpcs.js',
+  scriptUrl: '//at.alicdn.com/t/font_2178201_7sqw1pfndwb.js',
 });
 
 export default () => {
@@ -125,6 +125,9 @@ export default () => {
             }}>
               <EasyGifIcon type="icon-crop" />
             </a>
+            {/* <a title="Click to add mosaic">
+              <EasyGifIcon type="icon-masaike" />
+            </a> */}
           </div>
         )
       }
