@@ -35,7 +35,7 @@ export default () => {
           previewFrames.map((frame, index) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
-              <FrameCard frame={frame} key={index} index={index} currentIndex={localIndex} onClickItem={() => {
+              <FrameCard frame={frame} key={index} index={index} currentIndex={localIndex} count={previewFrames.length} onClickItem={() => {
                 dispatch({
                   type: 'player/setIndex',
                   payload: index,

@@ -69,7 +69,7 @@ export default ({
           } else if (e.data.action === 'PROGRESS') {
             setParsePercent((e.data.percent * 100).toFixed(2));
           }
-        }
+        };
       });
     },
     [files],
