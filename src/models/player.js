@@ -44,7 +44,7 @@ export default {
         ...state,
         frames: [...state.initialFrames],
         previewFrames: [...state.initialPreviewFrames],
-      }
+      };
     },
     updateFrames(state, { payload }) {
       return {
@@ -62,7 +62,7 @@ export default {
               ...state,
               currentIndex: 0,
               playing: false,
-            }
+            };
           }
         }
         let newIndex = state.currentIndex + state.direction;
@@ -75,7 +75,7 @@ export default {
         return {
           ...state,
           currentIndex: newIndex,
-        }
+        };
       }
       return {
         ...state,
@@ -101,7 +101,7 @@ export default {
       return {
         ...state,
         size: payload,
-      }
+      };
     },
     rotateFrame(state) {
       return {
@@ -109,8 +109,8 @@ export default {
         size: {
           width: state.size.height,
           height: state.size.width,
-        }
-      }
+        },
+      };
     },
     reverseFrame(state) {
       return {
@@ -119,11 +119,11 @@ export default {
         frames: [...state.frames.reverse()],
         initialPreviewFrames: [...state.initialPreviewFrames.reverse()],
         previewFrames: [...state.previewFrames.reverse()],
-      }
+      };
     },
     removeFrameAtIndex(state, { payload }) {
       const currentIndex = state.currentIndex;
-      
+
       const initialFrames = state.initialFrames;
       initialFrames.splice(payload, 1);
 
@@ -147,11 +147,7 @@ export default {
       return result;
     },
     addNewFrame(state, { payload }) {
-      const {
-        currentIndex,
-        pos,
-        data,
-      } = payload;
+      const { currentIndex, pos, data } = payload;
       let insertIndex = currentIndex;
       if (pos > 0) {
         insertIndex += 1;
@@ -174,7 +170,6 @@ export default {
 
       const previewFrames = state.previewFrames;
       previewFrames.splice(insertIndex, 0, previewFrame);
-      console.log(insertIndex, previewFrames.length);
       return {
         ...state,
         initialFrames: [...initialFrames],
@@ -182,6 +177,6 @@ export default {
         initialPreviewFrames: [...initialPreviewFrames],
         previewFrames: [...previewFrames],
       };
-    }
+    },
   },
 };
