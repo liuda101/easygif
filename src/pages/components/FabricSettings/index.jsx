@@ -25,6 +25,7 @@ export default () => {
         setInitialValues({
           text: currentObject.get('text'),
           fontSize: currentObject.get('fontSize'),
+          fontFamily: currentObject.get('fontFamily'),
           fill: currentObject.get('fill'),
           fontWeight: currentObject.get('fontWeight'),
           shadow: currentObject.get('shadow'),

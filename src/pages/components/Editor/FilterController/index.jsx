@@ -36,26 +36,26 @@ export default () => {
       key: 'eclectic',
       src: eclecticImg,
     },
-    {
-      title: 'HorizontalLines',
-      key: 'horizontalLines',
-      src: horizontalLinesImg,
-    },
-    {
-      title: 'Incbrightness',
-      key: 'incbrightness',
-      src: incbrightnessImg,
-    },
+    // {
+    //   title: 'HorizontalLines',
+    //   key: 'horizontalLines',
+    //   src: horizontalLinesImg,
+    // },
+    // {
+    //   title: 'Incbrightness',
+    //   key: 'incbrightness',
+    //   src: incbrightnessImg,
+    // },
     {
       title: 'Offset',
       key: 'offset',
       src: offsetImg,
     },
-    {
-      title: 'SpecksRedscale',
-      key: 'specksRedscale',
-      src: specksRedscaleImg,
-    },
+    // {
+    //   title: 'SpecksRedscale',
+    //   key: 'specksRedscale',
+    //   src: specksRedscaleImg,
+    // },
     {
       title: 'Sunset',
       key: 'sunset',
