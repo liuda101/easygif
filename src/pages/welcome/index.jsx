@@ -13,7 +13,7 @@ export default () => {
             <div className={styles.free}>Totaly Free</div>
             <div className={styles.title1}>EasyGif</div>
             <div className={styles.title2}>An online gif editor</div>
-            <div className={styles.title2}>Power. And it's easy.</div>
+            <div className={styles.title2}>Easy. With greate power.</div>
             <Button className={styles.run} onClick={() => {
               history.push('/editor');
             }} type="primary" size="large" shape="round">Run</Button>
