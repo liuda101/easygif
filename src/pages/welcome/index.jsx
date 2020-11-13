@@ -1,66 +1,98 @@
 import React, { useEffect, useRef } from 'react';
 import { Typography, Row, Col, Button } from 'antd';
 import { history } from 'umi';
+import styles from './index.less';
 
 export default () => {
-  const div = useRef(null);
-  useEffect(
-    () => {
-      const script = document.createElement('script');
-      script.async = true;
-      script.setAttribute('data-ad-client', '');
-      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-      div.current.appendChild(script);
-    },
-    []
-  );
 
   return (
-    <div style={{
-      width: 1000,
-      margin: '0 auto'
-    }}>
-      <Row type="flex" justify="space-between" align="middle">
-        <Col>
-          <Typography.Title>
-            EasyGif
-          </Typography.Title>
-        </Col>
-        <Col>
-          <Button type="primary" onClick={() => {
-            history.replace('/editor');
-          }}>RUN</Button>
-        </Col>
-      </Row>
+    <div className={styles.welcome}>
+      <div className={styles.cardBlack}>
+        <div className={styles.wrapper}>
+          <div>
+            <div className={styles.free}>Totaly Free</div>
+            <div className={styles.title1}>EasyGif</div>
+            <div className={styles.title2}>An online gif editor</div>
+            <div className={styles.title2}>Power. And it's easy.</div>
+            <Button className={styles.run} onClick={() => {
+              history.push('/editor');
+            }} type="primary" size="large" shape="round">Run</Button>
+            <div className={styles.desc}>Free of watermarks or attribution.</div>
+          </div>
+          <div>
+            <img src="/welcome/intro.png" style={{width: 593, height: 365}} />
+          </div>
+        </div>
+      </div>
 
-      <Typography>
-        EasyGif is a free online gif editor. 
-      </Typography>
-      <br/>
-      <Typography>
-        It allows you to create your own animated GIFs by edit an existing gif, transform a video(mp4 for now) to a gif, and create a gif by combining separated image files.
-      </Typography>
-      <br/>
-      <Typography>
-        Produced GIFs are free of watermarks or attribution, making this tool ideal for developers and content creators.
-      </Typography>
-      <br/>
-      <Typography>
-        To make a gif, you can upload a source gif, then apply transforms/filters to it or add some texts to it. Also, you can remove some frames to generate another gif.
-      </Typography>
-      <br/>
-      <Typography>
-        You can also upload a video(mp4 for now). It will transform the video to a gif. Then you can do the samething(transform/filter/add text, etc) to it.
-      </Typography>
-      <br/>
-      <Typography>
-        You may also upload a sequence of JPG, PNG images to make a gif.
-      </Typography>
-      <br/>
-      <Typography>
-        EasyGif use the browser tech to do all things. It's a pure JS/CSS/HTML application.
-      </Typography>
-      <div ref={div} style={{height: 200}}>
+      <div className={styles.cardWhite}>
+        <div className={styles.wrapper}>
+          <div>
+            <div className={styles.subTitle}>Where to begin</div>
+            <div className={styles.subIntro}>- From a source gif</div>
+            <div className={styles.subIntro}>- Convert mp4 to gif</div>
+            <div className={styles.subIntro}>- Combine some pictures to gif</div>
+          </div>
+          <div>
+            <img src="/welcome/begin.png" style={{width: 408, height: 387}} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardBlack}>
+        <div className={styles.wrapper}>
+          <div>
+            <div className={styles.subTitle}>Edit the gif</div>
+            <div className={styles.subIntro}>- Adjust animation speed</div>
+            <div className={styles.subIntro}>- Reverse</div>
+            <div className={styles.subIntro}>- Rotate, flip</div>
+            <div className={styles.subIntro}>- Apply filters</div>
+          </div>
+          <div>
+            <img src="/welcome/edit.png" style={{width: 429, height: 350}} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardWhite}>
+        <div className={styles.wrapper}>
+          <div>
+            <div className={styles.subTitle}>Text, Crop</div>
+            <div className={styles.subIntro}>- Add text, and set the attribute</div>
+            <div className={styles.subIntro}>- Text appears just in some frames</div>
+            <div className={styles.subIntro}>- Crop the gif</div>
+          </div>
+          <div>
+            <img src="/welcome/txtcrop.png" style={{width: 519, height: 485}} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardBlack}>
+        <div className={styles.wrapper}>
+          <div>
+            <div className={styles.subTitle}>Frame by Frame</div>
+            <div className={styles.subIntro}>- Add new frames</div>
+            <div className={styles.subIntro}>- Remove frames</div>
+          </div>
+          <div>
+            <img src="/welcome/fbf.png" style={{width: 443, height: 280}} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardWhite} style={{textAlign: 'center'}}>
+        <div className={styles.largeTitle}>
+          Export your art.
+        </div>
+        <div className={styles.largeDesc}>
+          Free of watermarks or attribution.
+        </div>
+        <div>
+          <Button type="primary" className={styles.run} onClick={() => {
+            history.push('/editor');
+          }} size="large" shape="round">Run</Button>
+        </div>
       </div>
     </div>
   )
