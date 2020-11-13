@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Upload, Row, Col } from 'antd';
+import { Modal, Upload, Row, Col, message } from 'antd';
 import { FileGifOutlined, VideoCameraAddOutlined, FileImageOutlined, createFromIconfontCN } from '@ant-design/icons';
 import { useDispatch, useSelector, Link } from 'umi';
 import GifTools from './components/GifTools';
@@ -59,6 +59,7 @@ export default () => {
               <Upload.Dragger
                 accept=".gif"
                 beforeUpload={(fileSelected) => {
+                  message.info('Parsing the files. Wait a moment');
                   dispatch({
                     type: 'parser/resetFile',
                     payload: {
@@ -80,6 +81,7 @@ export default () => {
               <Upload.Dragger
                 accept=".mp4"
                 beforeUpload={(fileSelected) => {
+                  message.info('Parsing the files. Wait a moment');
                   dispatch({
                     type: 'parser/resetFile',
                     payload: {
@@ -107,6 +109,7 @@ export default () => {
                 showUploadList={false}
                 onChange={(v) => {
                   if (file === null) {
+                    message.info('Parsing the files. Wait a moment');
                     dispatch({
                       type: 'parser/resetFile',
                       payload: {

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Typography, Row, Col, Button } from 'antd';
+import React from 'react';
+import { Button } from 'antd';
 import { history } from 'umi';
 import styles from './index.less';
 
