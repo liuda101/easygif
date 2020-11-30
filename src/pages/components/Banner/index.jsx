@@ -10,9 +10,6 @@ export default () => {
         <a href="https://twitter.com/liuqifeng101" target="_blank">
           <TwitterOutlined />
         </a>
-        <a href="https://join.slack.com/t/easygif/shared_invite/zt-jwlaonb4-lu4gFkbVBVZ6zn2nu2MrmA" target="_blank">
-          <SlackOutlined />
-        </a>
       </div>
     </div>
   )
