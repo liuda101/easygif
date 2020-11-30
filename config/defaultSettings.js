@@ -9,6 +9,6 @@ export default {
   fixSiderbar: true,
   colorWeak: false,
   title: 'EasyGif',
-  pwa: false,
+  pwa: true,
   iconfontUrl: '',
 };
