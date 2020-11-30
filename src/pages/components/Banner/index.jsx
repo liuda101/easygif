@@ -1,5 +1,5 @@
 import React from 'react';
-import { MailOutlined } from '@ant-design/icons';
+import { TwitterOutlined } from '@ant-design/icons';
 import styles from './index.less';
 
 export default () => {
@@ -7,7 +7,9 @@ export default () => {
     <div className={styles.banner}>
       <img src="/EasyGIF.png" alt="logo" />
       <div>
-        <a href="mailto:liuqifeng101@gmail.com"><MailOutlined /> mail to me</a>
+        <a href="https://twitter.com/liuqifeng101" target="_blank">
+          <TwitterOutlined />
+        </a>
       </div>
     </div>
   )

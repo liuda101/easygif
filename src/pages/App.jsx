@@ -18,9 +18,6 @@ const ModalTitle = () => {
   return (
     <div className={styles.modalTitle}>
       <div>Select files to begin</div>
-      <Link to="/introduction">
-        <EasyGifIcon type="icon-help" />
-      </Link>
     </div>
   )
 }
