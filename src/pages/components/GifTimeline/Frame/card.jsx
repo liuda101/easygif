@@ -34,10 +34,10 @@ export default ({
       }
       dispatch({
         type: 'player/removeFrameAtIndex',
-        payload: currentIndex,
+        payload: index,
       });
     },
-    [currentIndex],
+    [index],
   );
 
   const handleMenuClick = useCallback(
@@ -105,7 +105,7 @@ export default ({
                 type: 'player/addNewFrame',
                 payload: {
                   data,
-                  currentIndex,
+                  currentIndex: index,
                   pos: addingFrame.pos,
                 }
               });

@@ -133,6 +133,7 @@ export default {
 
       const previewFrames = state.previewFrames;
       previewFrames.splice(payload, 1);
+      console.log(payload);
       const result = {
         ...state,
         initialFrames: [...initialFrames],
