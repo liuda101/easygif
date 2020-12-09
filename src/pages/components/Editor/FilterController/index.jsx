@@ -7,17 +7,17 @@ import EditorGroup from '../EditorGroup';
 import resetImg from '@/assets/reset.png';
 import grayImg from '@/assets/gray.png';
 import eclecticImg from '@/assets/eclectic.png';
-import horizontalLinesImg from '@/assets/horizontal_lines.png';
-import incbrightnessImg from '@/assets/incbrightness.png';
+// import horizontalLinesImg from '@/assets/horizontal_lines.png';
+// import incbrightnessImg from '@/assets/incbrightness.png';
 import offsetImg from '@/assets/offset.png';
-import specksRedscaleImg from '@/assets/specks_redscale.png';
+// import specksRedscaleImg from '@/assets/specks_redscale.png';
 import sunsetImg from '@/assets/sunset.png';
 
 import styles from './index.less';
 
 export default () => {
-  const frames = useSelector(state => state.player.frames);
-  const previewFrames = useSelector(state => state.player.previewFrames);
+  const frames = useSelector(state => state.player.initialFrames);
+  const previewFrames = useSelector(state => state.player.initialPreviewFrames);
   const dispatch = useDispatch();
 
   const [filterButtons] = useState([

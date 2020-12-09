@@ -115,9 +115,9 @@ export default () => {
             }}>
               <EasyGifIcon type="icon-TextAdd" />
             </a>
-            <a title="Click to add some pictures">
+            {/* <a title="Click to add some pictures">
               <EasyGifIcon type="icon-image-add-line" />
-            </a>
+            </a> */}
             <a title="Click to crop the gif" onClick={() => {
               dispatch({
                 type: 'clip/startClip',

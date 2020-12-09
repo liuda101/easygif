@@ -2,9 +2,7 @@ export default {
   namespace: 'player',
   state: {
     currentIndex: 0,
-    // 1 正序；-1反序
     playing: true,
-    direction: 1,
     initialFrames: [],
     frames: [],
 
@@ -54,8 +52,8 @@ export default {
       };
     },
 
-    playNext(state) {
-      if (state.playing) {
+    playNext(state, { payload }) {
+      if (state.playing || payload.force) {
         if (!state.repeat) {
           if (state.currentIndex === state.frames.length - 1) {
             return {
@@ -65,7 +63,7 @@ export default {
             };
           }
         }
-        let newIndex = state.currentIndex + state.direction;
+        let newIndex = state.currentIndex + payload.direction;
         if (newIndex >= state.frames.length) {
           newIndex = 0;
         }

@@ -10,10 +10,10 @@ export default () => {
       <div className={styles.cardBlack}>
         <div className={styles.wrapper}>
           <div>
-            <div className={styles.free}>Totaly Free</div>
+            <div className={styles.free}>Totally Free</div>
             <div className={styles.title1}>EasyGif</div>
             <div className={styles.title2}>An online gif editor</div>
-            <div className={styles.title2}>Easy. With greate power.</div>
+            <div className={styles.title2}>Easy. With great power.</div>
             <Button className={styles.run} onClick={() => {
               history.push('/editor');
             }} type="primary" size="large" shape="round">Run</Button>

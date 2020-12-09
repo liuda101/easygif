@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Upload, Row, Col, message } from 'antd';
-import { FileGifOutlined, VideoCameraAddOutlined, FileImageOutlined, createFromIconfontCN } from '@ant-design/icons';
+import { FileGifOutlined, VideoCameraAddOutlined, FileImageOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector, Link } from 'umi';
 import GifTools from './components/GifTools';
 import GifPlayer from './components/GifPlayer';
@@ -9,10 +9,6 @@ import Banner from './components/Banner';
 import Editor from './components/Editor';
 import Export from './components/Export';
 import styles from './app.less';
-
-const EasyGifIcon = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2178201_ven2ulwpcs.js',
-});
 
 const ModalTitle = () => {
   return (

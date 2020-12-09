@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'umi';
 
 export default ({
@@ -21,12 +21,45 @@ export default ({
         const timer = setTimeout(() => {
           dispatch({
             type: 'player/playNext',
+            payload: {
+              direction: 1,
+            }
           });
         }, duration);
         return () => clearTimeout(timer);
       }
     },
     [frames, currentIndex, playing, duration],
+  );
+
+  useEffect(
+    () => {
+      const keyboardPlay = (e) => {
+        if (frames.length > 0 && !playing) {
+          let direction = 0;
+          if (e.keyCode === 39 || e.keyCode === 40) {
+            direction = 1;
+          } else if (e.keyCode === 37 || e.keyCode === 38) {
+            direction = -1;
+          }
+          if (direction !== 0) {
+            dispatch({
+              type: 'player/playNext',
+              payload: {
+                direction,
+                force: true,
+              }
+            });
+          }
+        }
+      };
+
+      document.addEventListener('keydown', keyboardPlay, false);
+      return () => {
+        document.removeEventListener('keydown', keyboardPlay);
+      }
+    },
+    [playing, frames, dispatch],
   );
 
   return (
